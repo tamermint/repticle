@@ -1,4 +1,5 @@
 # reputation-graph
+![A Better KYC awaits. On-Chain. Fully verifiable](./TitlePage.png)
 - As part of the build backdrop project to build something in Crypto and interface with backdrop partners to get it launched
 
 - Follows a similar concept like the lens protocol however the use case is for reputation and credibility
