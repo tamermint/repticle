@@ -92,6 +92,10 @@ h1 {
   border-top-left-radius: 0;
 }
 
+#about-kyc {
+  color: snow;
+}
+
 a,
 .link {
   color: var(--primary);
