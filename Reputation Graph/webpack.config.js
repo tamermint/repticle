@@ -65,6 +65,11 @@ module.exports = {
       chunks: ['index'],
     }), 
     new HtmlWebpackPlugin({
+      filename: 'why-kyc.html',
+      template: './src/why-kyc.html',
+      chunks: ['index'],
+    }),
+    new HtmlWebpackPlugin({
       filename: 'components.html',
       template: './src/components.html',
       chunks: ['components'],
