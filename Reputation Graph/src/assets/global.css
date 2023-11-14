@@ -94,6 +94,8 @@ h1 {
 
 #about-kyc {
   color: snow;
+  text-orientation: upright;
+  line-height: 2em;
 }
 
 a,
