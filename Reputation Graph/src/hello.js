@@ -13,34 +13,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Button clicks
-document.querySelector('form').onsubmit = setGreeting;
-document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
+// document.querySelector('form').onsubmit = setGreeting;
+document.querySelector('#sign-in-button').onclick = () => { 
+  console.log('Sign in button clicked');
+  wallet.signIn(); };
 document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
 
-async function setGreeting(event) {
-  event.preventDefault();
-
-  // handle UI
-  document.querySelector('#signed-in').classList.add('please-wait');
-
-  // use the wallet to send the greeting to the Smart Contract
-  const { greeting } = event.target.elements;
-  await wallet.callMethod({ method: 'set_greeting', args: { greeting: greeting.value }, contractId: HELLO_NEAR });
-
-  // query the new greeting
-  await getGreeting();
-
-  // handle UI
-  document.querySelector('#signed-in').classList.remove('please-wait');
-}
-
-async function getGreeting() {
-  // use the wallet to query the Smart Contract
-  const currentGreeting = await wallet.viewMethod({ method: 'get_greeting', contractId: HELLO_NEAR });
-
-  // Display it
-  document.querySelector('#displayGreeting').innerText = currentGreeting;
-} 
 
 // UI: Hide signed-in elements
 function signedOutUI() { hide('#signed-in'); hide('#sign-out-button'); }
@@ -60,12 +38,12 @@ async function querySOL(walletid) {
     window.alert("Please login with your wallet!")
   }
   else{
-    
+
   }
 }
 
-document.querySelector('#query-aave-button').onclick = queryAAVE(wallet.accountId);
-document.querySelector('#query-sol-button').onclick = querySOL(wallet.accountId);
+document.querySelector('#query-aave-button').onclick = () => queryAAVE(wallet.accountId);
+document.querySelector('#query-sol-button').onclick = () => querySOL(wallet.accountId);
 
 
 // UI: Hide signed-out elements

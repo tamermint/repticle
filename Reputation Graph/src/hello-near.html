@@ -32,34 +32,36 @@
     </div>
 
     <div class="row my-5 pt-5 flex-1">
-      <div class="col-12">
-        <h1> Welcome Citizen, Login to get summary of your activity <!--<span class="greeting" id="displayGreeting"></span>--></h1>
+      <div class="col-12 text-center">
+        <h1 id="welcomeMessage"> Welcome Citizen, Login to get summary of your activity <!--<span class="greeting" id="displayGreeting"></span>--></h1>
       </div>
-      <div class="col-12">
-        <button class="btn btn-primary" id="query-aave-button">Query AAVE</button>
-        <button class="btn btn-primary" id="query-sol-button">Query SOL</button>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <button class="btn btn-primary me-3" id="query-aave-button">Query AAVE</button>
+          <button class="btn btn-primary me-3" id="query-sol-button">Query SOL</button>
+        </div>
       </div>
       <div class="col-4">
         <div id="signed-out" class="big">
-          Please login before querying!!
+          You need to be logged in before querying!
         </div>
         <div id="signed-in">
           <form class="change">
-            <div className="input-group">
+           <!--  <div className="input-group">
               <input placeholder="Store a new greeting" id="greeting" />
               <button class="btn btn-primary">
                 <span>Save</span>
                 <div class="loader"></div>
-              </button>
+              </button> -->
             </div>
           </form>
         </div>
       </div>
     </div>
 
-    <div class="row pt-5">
+    <div class="row m-5">
       <div class="col-6">
-        <a href="/components.html">
+        <a href="/components.html" target="_blank">
           <h3>
             Check out your web3 Reputation <span>-&gt;</span>
           </h3>
