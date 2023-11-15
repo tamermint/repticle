@@ -7,11 +7,10 @@ const HELLO_NEAR = 'hello.near-examples.testnet';
 const wallet = new Wallet({ network: 'testnet' });
 
 // Setup on page load
-window.onload = async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   let isSignedIn = await wallet.startUp();
   isSignedIn ? signedInUI() : signedOutUI();
-  getGreeting();
-};
+});
 
 // Button clicks
 document.querySelector('form').onsubmit = setGreeting;
@@ -41,10 +40,33 @@ async function getGreeting() {
 
   // Display it
   document.querySelector('#displayGreeting').innerText = currentGreeting;
-}
+} 
 
 // UI: Hide signed-in elements
 function signedOutUI() { hide('#signed-in'); hide('#sign-out-button'); }
+
+//Query AAVE
+async function queryAAVE(walletid) {
+  if(!walletid) {
+    window.alert("Please login with your wallet!")
+  }
+  else{
+
+  }
+}
+
+async function querySOL(walletid) {
+  if(!walletid) {
+    window.alert("Please login with your wallet!")
+  }
+  else{
+    
+  }
+}
+
+document.querySelector('#query-aave-button').onclick = queryAAVE(wallet.accountId);
+document.querySelector('#query-sol-button').onclick = querySOL(wallet.accountId);
+
 
 // UI: Hide signed-out elements
 function signedInUI() {
@@ -54,6 +76,8 @@ function signedInUI() {
   document.querySelectorAll('[data-behavior=account-id]').forEach(el => {
     el.innerText = wallet.accountId;
   });
+
+  document.querySelector('#welcomeMessage').innerText = `Welcome, ${wallet.accountId}`;
 }
 
 function hide(id) {

@@ -46,6 +46,10 @@ a {
   color: rgba(250, 255, 255, 0.5);
 }
 
+.col-12 > #sign-in-button {
+  justify-self: center;
+}
+
 
 h1 {
   text-align: center;

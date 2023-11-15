@@ -32,12 +32,16 @@
     </div>
 
     <div class="row my-5 pt-5 flex-1">
-      <div class="col-8">
-        <h1> The contract says: <span class="greeting" id="displayGreeting"></span> </h1>
+      <div class="col-12">
+        <h1> Welcome Citizen, Login to get summary of your activity <!--<span class="greeting" id="displayGreeting"></span>--></h1>
+      </div>
+      <div class="col-12">
+        <button class="btn btn-primary" id="query-aave-button">Query AAVE</button>
+        <button class="btn btn-primary" id="query-sol-button">Query SOL</button>
       </div>
       <div class="col-4">
-        <div id="signed-out" class="small">
-          Please login with your wallet to check your activity
+        <div id="signed-out" class="big">
+          Please login before querying!!
         </div>
         <div id="signed-in">
           <form class="change">
