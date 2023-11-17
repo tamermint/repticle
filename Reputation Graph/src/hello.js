@@ -1,5 +1,5 @@
 import { Wallet } from './near-wallet';
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 
 
 //setting the contract ABI for retrieving wallet balance of a user
@@ -133,7 +133,7 @@ async function queryAAVE(walletid) {
       const displayDiv = document.querySelector('#displayDiv');
       displayDiv.innerHTML = '';
       tokenAddresses.forEach((address, index) => {
-        const balanceInEther = ethers.utils.formatEther(balances[index]);
+        const balanceInEther = ethers.formatEther(balances[index]);
         const displayDivChild = document.createElement('div');
         displayDivChild.classList.add('resdisplay');
         displayDivChild.innerHTML = `Token: ${address}, Balance: ${balanceInEther}`;
