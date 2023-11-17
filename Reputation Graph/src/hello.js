@@ -1,8 +1,6 @@
 import { Wallet } from './near-wallet';
 import { ethers } from 'ethers';
 
-//AAVE V3 testnet is on Sepolia 
-const network = 'sepolia';
 
 //setting the contract ABI for retrieving wallet balance of a user
 const walletBalanceProviderAddress = '0xCD4e0d6D2b1252E2A709B8aE97DBA31164C5a709';
@@ -127,8 +125,6 @@ async function queryAAVE(walletid) {
       // Create a new contract instance
       const walletBalanceProviderContract = new ethers.Contract(walletBalanceProviderAddress, walletBalanceProviderABI, provider);
 
-      //Token address of ETH
-      const userAddress = wallet.accountId;
 
       // Get balance
       const [tokenAddresses, balances] = await walletBalanceProviderContract.getUserWalletBalances(provider, walletid);
@@ -139,7 +135,7 @@ async function queryAAVE(walletid) {
       tokenAddresses.forEach((address, index) => {
         const balanceInEther = ethers.utils.formatEther(balances[index]);
         const displayDivChild = document.createElement('div');
-        displayDivChild.classList.add('aavedisplay');
+        displayDivChild.classList.add('resdisplay');
         displayDivChild.innerHTML = `Token: ${address}, Balance: ${balanceInEther}`;
         displayDiv.appendChild(displayDivChild);
       });
@@ -148,7 +144,6 @@ async function queryAAVE(walletid) {
       console.error("Error querying AAVE:", error);
       window.alert("Error occurred while querying AAVE: " + error.message);
     }
-    //use the wallet ID logged in from the wallet to call AAVE APIs
   }
 }
 
@@ -157,7 +152,40 @@ async function querySOL(walletid) {
     window.alert("Please login with your wallet!")
   }
   else{
+    const rpcURL = 'https://api.devnet.solana.com'; //api for solana devnet
+    const method = 'getConfirmedSignaturesForAddress2'; //to get the last 10 transactions
+    const params = [walletid, { limit: 10 }]; //params for the api
+    //formatting the request body
+    const body = JSON.stringify({
+      jsonrpc: '2.0',
+      id: 1,
+      method: method,
+      params: params
+    });
 
+    try{
+      const response = await fetch(rpcURL, {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: body
+      });
+      const data = await response.json();
+      const displayData = data.result;
+      displayDiv.innerHTML = '';
+      const displayDivChild = document.createElement('div');     //appending the JSON response to the body
+      displayDivChild.classList.add('resdisplay');
+      displayDivChild.innerHTML = `
+          <p><strong>Transaction Signature:</strong> ${tx.signature}</p>
+          <p><strong>Slot:</strong> ${tx.slot}</p>
+          <p><strong>Block Time:</strong> ${new Date(tx.blockTime * 1000).toLocaleString()}</p>
+        `;
+      displayDiv.appendChild(displayDivChild);
+
+    }
+    catch(error){
+      console.error("Error querying SOL:", error);
+      window.alert("Error occurred while querying SOL: " + error.message);
+    }
   }
 }
 
