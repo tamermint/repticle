@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { Wallet } from './near-wallet';
 import { useInitNear, Widget } from 'near-social-vm';
 import { useEffect } from 'react';
+const { ethers } = require("ethers");
 
 const wallet = new Wallet({network: 'testnet'});
 
@@ -21,9 +22,11 @@ export default function Component({ src }) {
   );
 }
 
-window.onload = async () => {
+// Setup on page load
+document.addEventListener('DOMContentLoaded', async () => {
   let isSignedIn = await wallet.startUp();
-  isSignedIn? signedInUI(): signedOutUI();
+  isSignedIn ? signedInUI() : signedOutUI();
+
 
   const domNode = document.getElementById('components');
   const root = createRoot(domNode);
@@ -39,7 +42,7 @@ window.onload = async () => {
       </div>
     </div>
   );
-};
+});
 
 // Button clicks
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };

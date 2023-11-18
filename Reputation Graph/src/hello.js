@@ -1,5 +1,5 @@
 import { Wallet } from './near-wallet';
-import { ethers } from "ethers";
+const { ethers } = require("ethers");
 
 
 //setting the contract ABI for retrieving wallet balance of a user

@@ -15,7 +15,7 @@
 
 <body>
   <nav class="navbar">
-    <div class="container-fluid navbar-expand-lg">
+    <div class="container-fluid navbar-expand-lg justify-content-end">
       <!-- <a href="/"><img src="./assets/logo-black.svg" alt="Near" height="40" class="d-inline-block align-text-top" /></a> -->
       <div class='navbar-nav pt-1'>
         <button class="btn btn-secondary" id="sign-in-button"> Login </button>
@@ -24,32 +24,27 @@
     </div>
   </nav>
 
-  <div class="alert alert-info mx-auto mt-1" role="alert">
-    Loading components from: v1.social08.testnet
-  </div>
-
-  <div class="alert alert-danger mx-auto mt-1" role="alert">
-    Ethereum components do <b>not</b> work on this vanilla-js template
-  </div>
-
   <div class="container my-4 pt-4">
+    <footer id="disclaimer">This is a PoC that interacts with only AAVE and SOLANA. To get an idea of how this PoC can be matured
+      refer to the Github <a id="footer-disclaimer" href="https://github.com/tamermint/reputation-graph">tamermint@github</a>
+    </footer>
     <div id="components"> </div>
 
     <div class="row pt-5">
       <div class="col-6">
-        <a href="/hello-near.html" className={styles.card} rel="noopener noreferrer">
+        <a href="/hello-near.html" className={styles.card} rel="noopener noreferrer" target="_blank">
           <h3>
-            NEAR Integration <span>-&gt;</span>
+            Enter your Wallet ID <span>-&gt;</span>
           </h3>
-          <p class="small">Discover how simple it is to interact with a NEAR smart contract.</p>
+          <p class="small">See what you have been upto</p>
         </a>
       </div>
       <div class="col-6">
         <a href="https://docs.near.org/develop/integrate/quickstart-frontend" target="_blank">
           <h3>
-            NEAR Docs <span>-&gt;</span>
+            Why KYC? <span>-&gt;</span>
           </h3>
-          <p class="small">Learn how this application works, and what you can build on NEAR.</p>
+          <p class="small">Learn why we need a better KYC for web3 and why web2 KYC is broken?</p>
         </a>
       </div>
     </div>
