@@ -14,27 +14,25 @@
 </head>
 
 <body>
-  <nav class="navbar">
-    <div class="container-fluid navbar-expand-lg justify-content-end">
-      <!-- <a href="/"><img src="./assets/logo-black.svg" alt="Near" height="40" class="d-inline-block align-text-top" /></a> -->
-      <div class='navbar-nav pt-1'>
-        <button class="btn btn-secondary" id="sign-in-button"> Login </button>
-        <button class="btn btn-secondary" id="sign-out-button"> Logout <span data-behavior="account-id"></span></button>
-      </div>
+  <div class="container-fluid navbar-expand-lg">
+    <!-- <a href="/"><img src="./assets/logo-black.svg" alt="Near" height="40" class="d-inline-block align-text-top" /></a> -->
+    <div class='navbar-nav pt-1 justify-content-end'>
+      <button class="btn btn-secondary" id="sign-in-button"> Login </button>
+      <button class="btn btn-secondary" id="sign-out-button"> Logout <span data-behavior="account-id"></span></button>
     </div>
-  </nav>
-
+  </div>
   <div class="container my-4 pt-4">
     <footer id="disclaimer">This is a PoC that interacts with only AAVE and SOLANA. To get an idea of how this PoC can be matured
       refer to the Github <a id="footer-disclaimer" href="https://github.com/tamermint/reputation-graph">tamermint@github</a>
     </footer>
+  </div>
+  <div class="container my-4 pt-4">
     <div id="components"> </div>
-
     <div class="row pt-5">
       <div class="col-6">
         <a href="/hello-near.html" className={styles.card} rel="noopener noreferrer" target="_blank">
           <h3>
-            Enter your Wallet ID <span>-&gt;</span>
+            Query AAVE and SOL <span>-&gt;</span>
           </h3>
           <p class="small">See what you have been upto</p>
         </a>

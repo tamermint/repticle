@@ -31,14 +31,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   const domNode = document.getElementById('components');
   const root = createRoot(domNode);
   root.render(
-    <div className='row'>
-      <div className='col-6'>
-        <Component src='influencer.testnet/widget/HelloNear' />
-        <p class="my-2">&nbsp;</p>
-        <Component src='influencer.testnet/widget/LoveNear' />
+    <div className='row-10'>
+      <div className='col-18 mt-3'>
+        <div className="input-group">
+          <input placeholder="enter wallet id" id="greeting"/>
+            <button class="btn btn-primary">
+              <span>submit</span>
+              <div class="loader"></div>
+            </button>
+        </div>
       </div>
       <div className='col-6'>
-        <Component src='influencer.testnet/widget/Lido' />      
+              
       </div>
     </div>
   );
