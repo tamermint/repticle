@@ -48,6 +48,54 @@ document.addEventListener('DOMContentLoaded', async () => {
   );
 });
 
+async function queryEthAddress(walletid) {
+  const etherScanAPIKey = "2KCHPQPJJJSKTQ281UI17F9Z8QIZ7ZDEZU";
+  const walletAddress = walletid;
+
+  const url = `https://api.etherscan.io/api?module=account &action=txlist &address=${walletAddress}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=${etherScanAPIKey}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data.result;
+}
+
+function categorizeOnChainActivites(activites) {
+
+  let activityScore = 0;
+
+  const activityGrade = {
+    deposit: 5,
+    mint: 7,
+    swap: 3
+  };
+
+  activites.forEach(activity => {
+    if(activity.functionName == 'deposit') {
+      activityScore += activityGrade.deposit;
+    }
+    else if(activity.functionName == 'swap') {
+      activityScore += activityGrade.swap;
+    }
+    else if(activity.functionName == 'mint') {
+      activityScore += activityGrade.mint;
+    }
+  })
+
+  return activityScore;
+}
+
+function calculateRepScore(activityScore) {
+  return Math.pow(activityScore, 2);
+}
+
+function mintRepScore(score) {
+  if(!score) {
+    window.alert("Sorry unable to fetch score");
+  }
+  else {
+    window.alert("*NFT*");
+  }
+}
+
 // Button clicks
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
 document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
