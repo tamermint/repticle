@@ -35,10 +35,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div className='col-18 mt-3'>
         <div className="input-group">
           <input placeholder="enter wallet id" id="greeting"/>
-            <button class="btn btn-primary">
+            <button id="wallet-btn"class="btn btn-primary">
               <span>submit</span>
               <div class="loader"></div>
             </button>
+          <button class="btn btn-primary" id="display-wallet-summary" onclick="generateSummary()">Generate Summary</button>
+          <div id="summary-display"></div>
         </div>
       </div>
       <div className='col-6'>
@@ -48,17 +50,58 @@ document.addEventListener('DOMContentLoaded', async () => {
   );
 });
 
-async function queryEthAddress(walletid) {
+async function queryEthAddress(walletid) {            //queries the eth address using etherscan API
   const etherScanAPIKey = "2KCHPQPJJJSKTQ281UI17F9Z8QIZ7ZDEZU";
   const walletAddress = walletid;
 
-  const url = `https://api.etherscan.io/api?module=account &action=txlist &address=${walletAddress}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=${etherScanAPIKey}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  return data.result;
+  try {
+    const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${walletAddress}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=${etherScanAPIKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.result;
+  }
+  catch(error) {
+    window.alert("Couldn't retreive data:" + error.message);
+  }
+  
 }
 
-function categorizeOnChainActivites(activites) {
+function simulateAiResponse(activities){      //simulating an AI response to activities, just a PoC
+  let summary = "Activity Summary: \n"
+
+  activities.forEach(activity => {            //checking which type of activity
+    if(activity.functionName.includes('deposit')){
+      summary += `For transaction ${activity.hash}, it is a ${activity.functionName} method used and the deposit value is ${activity.value}`;
+    }
+    else if(activity.functionName.includes('mint')) {
+      summary += `For transaction ${activity.hash}, it is a ${activity.functionName} method used and the mint cost is ${activity.value}`;
+    }
+    else {
+      summary += `For transaction ${activity.hash}, it is a ${activity.functionName} method used and the swap value is ${activity.value}`;
+    }
+  })
+
+  return summary;
+}
+
+async function displaySummary(walletAddress) {       //change the inner text of the div to contain the summary
+  const activities = await queryEthAddress(walletAddress);
+  const summary = simulateAiResponse(activities);
+
+  document.getElementById('summary-display').innerHTML = summary;
+}
+
+function generateSummary(){            //generates the summary using the onclick function
+  const walletAddress = document.getElementById('greeting').value;
+
+  displaySummary(walletAddress);
+
+}
+
+
+async function categorizeOnChainActivites(activities) {
+  const walletAddress = wallet.accountId;
+  activities = await queryEthAddress(walletAddress);
 
   let activityScore = 0;
 
@@ -68,14 +111,17 @@ function categorizeOnChainActivites(activites) {
     swap: 3
   };
 
-  activites.forEach(activity => {
-    if(activity.functionName == 'deposit') {
+  activities.forEach(activity => {
+    if(!activity) {
+      window.alert("Couldn't get any activity from server");
+    }
+    if(activity.functionName && activity.functionName.includes('deposit')) {
       activityScore += activityGrade.deposit;
     }
-    else if(activity.functionName == 'swap') {
+    else if(activity.functionName && activity.functionName.includes('swap')) {
       activityScore += activityGrade.swap;
     }
-    else if(activity.functionName == 'mint') {
+    else if(activity.functionName && activity.functionName.includes('mint')) {
       activityScore += activityGrade.mint;
     }
   })
@@ -83,22 +129,26 @@ function categorizeOnChainActivites(activites) {
   return activityScore;
 }
 
-function calculateRepScore(activityScore) {
+async function calculateRepScore(activityScore) {
+  activityScore = await categorizeOnChainActivites(activities);
   return Math.pow(activityScore, 2);
 }
 
 function mintRepScore(score) {
+  score = calculateRepScore(score);
   if(!score) {
     window.alert("Sorry unable to fetch score");
   }
   else {
-    window.alert("*NFT*");
+    window.alert(`NFT for ${score}`);
   }
 }
 
 // Button clicks
 document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
 document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
+document.querySelector('#wallet-btn').onclick = () => { mintRepScore(); }
+document.querySelector('#display-wallet-summary').onclick = () => { generateSummary(); }
 
 // UI: Display the signed-out container
 function signedOutUI() {
