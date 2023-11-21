@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               <span>submit</span>
               <div class="loader"></div>
             </button>
+            <div id="demo-nft"></div>
           <button class="btn btn-primary" id="display-wallet-summary" onclick="generateSummary()">Generate Summary</button>
           <div id="summary-display"></div>
         </div>
@@ -84,11 +85,14 @@ function simulateAiResponse(activities){      //simulating an AI response to act
   return summary;
 }
 
-async function displaySummary(walletAddress) {       //change the inner text of the div to contain the summary
-  const activities = await queryEthAddress(walletAddress);
-  const summary = simulateAiResponse(activities);
-
-  document.getElementById('summary-display').innerHTML = summary;
+async function generateSummary() {    //generate summary by first retreiving wallet value
+  try {
+    const walletAddress = document.getElementById('greeting').value;
+    await displaySummary(walletAddress);
+  } catch (error) {
+    console.error("Error in generateSummary:", error);
+    window.alert("Error occurred: " + error.message);
+  }
 }
 
 function generateSummary(){            //generates the summary using the onclick function
@@ -134,13 +138,19 @@ async function calculateRepScore(activityScore) {
   return Math.pow(activityScore, 2);
 }
 
-function mintRepScore(score) {
-  score = calculateRepScore(score);
-  if(!score) {
-    window.alert("Sorry unable to fetch score");
-  }
-  else {
-    window.alert(`NFT for ${score}`);
+async function mintRepScore() {
+  try {
+    const score = await calculateRepScore(); // Pass the correct argument if needed
+    if (!score) {
+      window.alert("Sorry, unable to fetch score");
+    } else {
+      window.alert(`NFT for ${score}:`);
+      const nftDiv = document.querySelector('#demo-nft');
+      nftDiv.style.backgroundImage = 'url("./src/assets/example-nftDiv.png")';
+    }
+  } catch (error) {
+    console.error("Error in mintRepScore:", error);
+    window.alert("Error occurred: " + error.message);
   }
 }
 
