@@ -4,14 +4,16 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const mode = process.env.NODE_ENV || 'development';
+
 module.exports = {
-  mode: 'development',
+  mode: mode,
   entry: {
     hello: './src/hello.js',
     components: './src/components.js',
     'near-wallet': './src/near-wallet.js',
   },
-  devtool: 'inline-source-map',
+  devtool: mode === 'development' ? 'inline-source-map' : false,
   devServer: {
     static: './dist',
   },
