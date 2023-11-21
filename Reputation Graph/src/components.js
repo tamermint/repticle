@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     <div className='row-10'>
       <div className='col-18 mt-3'>
         <div className="input-group">
-          <input placeholder="enter wallet id" id="greeting"/>
+          <input placeholder="enter wallet id (copy paste for now)" id="greeting"/>
             <button id="wallet-btn"class="btn btn-primary">
               <span>submit</span>
               <div class="loader"></div>
