@@ -88,18 +88,14 @@ function simulateAiResponse(activities){      //simulating an AI response to act
 async function generateSummary() {    //generate summary by first retreiving wallet value
   try {
     const walletAddress = document.getElementById('greeting').value;
-    await displaySummary(walletAddress);
+    const walletActivity = await queryEthAddress(walletAddress);
+    const summary = simulateAiResponse(walletActivity);
+    const walletSummaryDisplay = document.getElementById('summary-display');
+    walletSummaryDisplay.innerHTML = summary;
   } catch (error) {
     console.error("Error in generateSummary:", error);
     window.alert("Error occurred: " + error.message);
   }
-}
-
-function generateSummary(){            //generates the summary using the onclick function
-  const walletAddress = document.getElementById('greeting').value;
-
-  displaySummary(walletAddress);
-
 }
 
 
