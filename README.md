@@ -20,3 +20,11 @@ then copy over all files to local machine directory
 then 
 npm install 
 npm run dev
+
+- Additional notes:
+  - This was forked off the demo react app provided by NEAR Quickstart tutorials
+  - Background image - https://static.vecteezy.com/system/resources/previews/023/670/903/non_2x/decentralization-decentralized-structure-line-icon-vector.jpg
+
+- Future Scope
+ - My plan is to iterate on this and work on cross-chain communications. I plan to use NEAR. Currently I am not using any smart contracts so that is a steep learning curve
+ - I need to embed and refine the quadratic scoring logic and use a smart contract for cross chain communication. Front-end can be hosted on IPFS
