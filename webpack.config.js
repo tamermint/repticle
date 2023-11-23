@@ -59,17 +59,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
-      chunks: ['index'],
+      // chunks: ['index'],
     }), 
     new HtmlWebpackPlugin({
       filename: 'hello-near.html',
       template: './src/hello-near.html',
-      chunks: ['index'],
+      chunks: ['hello'],
     }), 
     new HtmlWebpackPlugin({
       filename: 'why-kyc.html',
       template: './src/why-kyc.html',
-      chunks: ['index'],
+      // chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
       filename: 'components.html',
