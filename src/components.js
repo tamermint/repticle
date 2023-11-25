@@ -153,10 +153,10 @@ async function mintRepScore() {
 }
 
 // Button clicks
-document.querySelector('#sign-in-button').onclick = () => { wallet.signIn(); };
-document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); };
-document.querySelector('#wallet-btn').onclick = () => { mintRepScore(); }
-document.querySelector('#display-wallet-summary').onclick = () => { generateSummary(); }
+document.querySelector('#sign-in-button').onClick = () => { wallet.signIn(); };
+document.querySelector('#sign-out-button').onClick = () => { wallet.signOut(); };
+document.querySelector('#wallet-btn').onClick = () => { mintRepScore(); }
+document.querySelector('#display-wallet-summary').onClick = () => { generateSummary(); }
 
 // UI: Display the signed-out container
 function signedOutUI() {
