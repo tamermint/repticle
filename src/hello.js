@@ -148,6 +148,7 @@ async function queryAAVE(walletid) {
 }
 
 async function querySOL(walletid) {
+  walletid = wallet.accountId;
   if(!walletid) {
     window.alert("Please login with your wallet!")
   }
@@ -171,6 +172,7 @@ async function querySOL(walletid) {
       });
       const data = await response.json();
       const displayData = data.result;
+      const displayDiv = document.querySelector('#displayDiv');
       displayDiv.innerHTML = '';
       const displayDivChild = document.createElement('div');     //appending the JSON response to the body
       displayDivChild.classList.add('resdisplay');

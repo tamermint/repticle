@@ -11,7 +11,7 @@ module.exports = {
   entry: {
     hello: './src/hello.js',
     components: './src/components.js',
-    'near-wallet': './src/near-wallet.js',
+    'near-wallet': './src/near-wallet.js'
   },
   devtool: mode === 'development' ? 'inline-source-map' : false,
   devServer: {
@@ -59,7 +59,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
-      // chunks: ['index'],
+      chunks: ['index'],
     }), 
     new HtmlWebpackPlugin({
       filename: 'hello-near.html',
@@ -69,7 +69,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'why-kyc.html',
       template: './src/why-kyc.html',
-      // chunks: ['index'],
+      chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
       filename: 'components.html',

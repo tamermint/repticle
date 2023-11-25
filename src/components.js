@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               <div className="loader"></div>
             </button>
             <div id="demo-nft"></div>
-          <button className="btn btn-primary" id="display-wallet-summary" onClick="generateSummary()">Generate Summary</button>
+          <button className="btn btn-primary" id="display-wallet-summary" onclick="generateSummary()">Generate Summary</button>
           <div id="summary-display"></div>
         </div>
       </div>
@@ -153,10 +153,10 @@ async function mintRepScore() {
 }
 
 // Button clicks
-document.querySelector('#sign-in-button').onClick = () => { wallet.signIn(); };
-document.querySelector('#sign-out-button').onClick = () => { wallet.signOut(); };
-document.querySelector('#wallet-btn').onClick = () => { mintRepScore(); }
-document.querySelector('#display-wallet-summary').onClick = () => { generateSummary(); }
+document.querySelector('#sign-in-button').addEventListener('click', wallet.signIn);
+document.querySelector('#sign-out-button').addEventListener('click', wallet.signOut);
+document.querySelector('#wallet-btn').addEventListener('click', mintRepScore);
+document.querySelector('#display-wallet-summary').addEventListener('click', generateSummary);
 
 // UI: Display the signed-out container
 function signedOutUI() {
