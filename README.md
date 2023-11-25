@@ -1,5 +1,7 @@
 # reputation-graph
+
 ![A Better KYC awaits. On-Chain. Fully verifiable](./TitlePage.png)
+
 - As part of the build backdrop project to build something in Crypto and interface with backdrop partners to get it launched
 
 - Follows a similar concept like the lens protocol however the use case is for reputation and credibility
@@ -15,16 +17,19 @@
 - Reputation graph will help you import a network-graph of value from your interactions with these services which will assist you in creating use-case specific validation services
 
 - To start : npm run dev if you have npm installed otherwise
-yarn install npm
-then copy over all files to local machine directory
-then 
-npm install 
-npm run dev
+  yarn install npm
+  then copy over all files to local machine directory
+  then
+  npm install
+  npm run dev
+
+- Live Link : https://reputation-token.onrender.com
 
 - Additional notes:
+
   - This was forked off the demo react app provided by NEAR Quickstart tutorials
   - Background image - https://static.vecteezy.com/system/resources/previews/023/670/903/non_2x/decentralization-decentralized-structure-line-icon-vector.jpg
 
 - Future Scope
- - My plan is to iterate on this and work on cross-chain communications. I plan to use NEAR. Currently I am not using any smart contracts so that is a steep learning curve
- - I need to embed and refine the quadratic scoring logic and use a smart contract for cross chain communication. Front-end can be hosted on IPFS
+- My plan is to iterate on this and work on cross-chain communications. I plan to use NEAR. Currently I am not using any smart contracts so that is a steep learning curve
+- I need to embed and refine the quadratic scoring logic and use a smart contract for cross chain communication. Front-end can be hosted on IPFS
