@@ -58,8 +58,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html',
-      chunks: ['index'],
+      template: './src/index.html'
+      //chunks: ['index'],
     }), 
     new HtmlWebpackPlugin({
       filename: 'hello-near.html',
@@ -68,8 +68,8 @@ module.exports = {
     }), 
     new HtmlWebpackPlugin({
       filename: 'why-kyc.html',
-      template: './src/why-kyc.html',
-      chunks: ['index'],
+      template: './src/why-kyc.html'
+      //chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
       filename: 'components.html',

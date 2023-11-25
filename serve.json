@@ -1,8 +1,8 @@
 {
-    "public" : "dist",
     "rewrites" : [
-        { "source": "/hello-near", "destination": "/hello-near.html" },
-        { "source": "/why-kyc", "destination": "/why-kyc.html" },
-        { "source": "/components", "destination": "/components.html" }
+        { "source": "/hello-near.html", "destination": "/hello-near.html" },
+        { "source": "/why-kyc.html", "destination": "/why-kyc.html" },
+        { "source": "/components.html", "destination": "/components.html" }
+        
     ]
 }
