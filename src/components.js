@@ -32,19 +32,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   root.render(
     <div className='row-10'>
       <div className='col-18 mt-3'>
-        <div className="input-group">
+        <div className="row-5 col-5 input-group">
           <input placeholder="enter wallet id (copy paste for now)" id="greeting"/>
             <button id="wallet-btn"className="btn btn-primary">
               <span>submit</span>
               <div className="loader"></div>
             </button>
             <div id="demo-nft"></div>
-          <button className="btn btn-primary" id="display-wallet-summary" onclick="generateSummary()">Generate Summary</button>
+          <div className='row-10 mt-4'>
+            <button className="btn btn-primary" id="display-wallet-summary" onClick={generateSummary}>Generate Summary</button>
+          </div>
           <div id="summary-display"></div>
         </div>
-      </div>
-      <div className='col-6'>
-              
       </div>
     </div>
   );
@@ -112,9 +111,10 @@ async function categorizeOnChainActivites(activities) {
 
   activities.forEach(activity => {
     if(!activity) {
-      window.alert("Couldn't get any activity from server");
+      window.alert("Couldn't get any activity from chain");
+      activityScore = 0;
     }
-    if(activity.functionName && activity.functionName.includes('deposit')) {
+    else if(activity.functionName && activity.functionName.includes('deposit')) {
       activityScore += activityGrade.deposit;
     }
     else if(activity.functionName && activity.functionName.includes('swap')) {
@@ -144,7 +144,7 @@ async function mintRepScore() {
     } else {
       window.alert(`NFT for ${score}:`);
       const nftDiv = document.querySelector('#demo-nft');
-      nftDiv.style.backgroundImage = 'url("./src/assets/example-nftDiv.png")';
+      nftDiv.style.backgroundImage = 'url("./assets/example-nft.png")';
     }
   } catch (error) {
     console.error("Error in mintRepScore:", error);
@@ -153,10 +153,12 @@ async function mintRepScore() {
 }
 
 // Button clicks
-document.querySelector('#sign-in-button').addEventListener('click', wallet.signIn);
-document.querySelector('#sign-out-button').addEventListener('click', wallet.signOut);
-document.querySelector('#wallet-btn').addEventListener('click', mintRepScore);
-document.querySelector('#display-wallet-summary').addEventListener('click', generateSummary);
+window.onload = function() {
+  document.querySelector('#sign-in-button').addEventListener('click', wallet.signIn);
+  document.querySelector('#sign-out-button').addEventListener('click', wallet.signOut);
+  document.querySelector('#wallet-btn').addEventListener('click', mintRepScore);
+  document.querySelector('#display-wallet-summary').addEventListener('click', generateSummary);
+};
 
 // UI: Display the signed-out container
 function signedOutUI() {

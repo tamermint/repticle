@@ -56,9 +56,14 @@ h1 {
   font-size: 1.5em;
 }
 
-.greeting {
+#greeting {
   color: var(--secondary);
-  text-decoration: underline;
+  /* text-decoration: underline; */
+  width: 80%;
+}
+
+#display-wallet-summary {
+  margin-left: 4em;
 }
 
 .alert{
