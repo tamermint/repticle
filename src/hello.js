@@ -114,6 +114,7 @@ function signedOutUI() { hide('#signed-in'); hide('#sign-out-button'); }
 
 //Query AAVE
 async function queryAAVE(walletid) {
+  //example address to use - 0xc736e108e326379b331f825f762af4dde41c62ef - mainnet
   if(!walletid) {
     window.alert("Please login with your wallet!")
   }
@@ -148,12 +149,13 @@ async function queryAAVE(walletid) {
 }
 
 async function querySOL(walletid) {
+  //example to use - 6qumtoj7ECEMzvFx7Pm7nnBmEUB7PXEeHj6VuokH6iH3 - mainnet
   walletid = wallet.accountId;
   if(!walletid) {
     window.alert("Please login with your wallet!")
   }
   else{
-    const rpcURL = 'https://api.devnet.solana.com'; //api for solana devnet
+    const rpcURL = 'https://public-api.solscan.io/chaininfo/'; //api for solana devnet
     const method = 'getConfirmedSignaturesForAddress2'; //to get the last 10 transactions
     const params = [walletid, { limit: 10 }]; //params for the api
     //formatting the request body
@@ -176,11 +178,13 @@ async function querySOL(walletid) {
       displayDiv.innerHTML = '';
       const displayDivChild = document.createElement('div');     //appending the JSON response to the body
       displayDivChild.classList.add('resdisplay');
-      displayDivChild.innerHTML = `
+      displayDivChild.innerHTML = displayData.forEach(tx => {
+        `
           <p><strong>Transaction Signature:</strong> ${tx.signature}</p>
           <p><strong>Slot:</strong> ${tx.slot}</p>
           <p><strong>Block Time:</strong> ${new Date(tx.blockTime * 1000).toLocaleString()}</p>
         `;
+      })
       displayDiv.appendChild(displayDivChild);
 
     }
