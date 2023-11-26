@@ -90,8 +90,8 @@ const walletBalanceProviderABI = [
     }
 ]
 
-//setting provider URL to that of infura (sepolia)
-const providerURL = 'https://sepolia.infura.io/v3/db4bbb5f4c224b55a40392836def6c9f';
+//setting provider URL to that of infura (mainnet)
+const providerURL = 'https://mainnet.infura.io/v3/db4bbb5f4c224b55a40392836def6c9f';
 
 // When creating the wallet you can optionally ask to create an access key
 // Having the key enables to call non-payable methods without interrupting the user to sign
@@ -113,8 +113,9 @@ document.querySelector('#sign-out-button').onclick = () => { wallet.signOut(); }
 function signedOutUI() { hide('#signed-in'); hide('#sign-out-button'); }
 
 //Query AAVE
-async function queryAAVE(walletid) {
+async function queryAAVE() {
   //example address to use - 0xc736e108e326379b331f825f762af4dde41c62ef - mainnet
+  const walletid = '0xc736e108e326379b331f825f762af4dde41c62ef';
   if(!walletid) {
     window.alert("Please login with your wallet!")
   }
@@ -148,15 +149,16 @@ async function queryAAVE(walletid) {
   }
 }
 
-async function querySOL(walletid) {
+async function querySOL() {
   //example to use - 6qumtoj7ECEMzvFx7Pm7nnBmEUB7PXEeHj6VuokH6iH3 - mainnet
-  walletid = wallet.accountId;
+  const walletid = '6qumtoj7ECEMzvFx7Pm7nnBmEUB7PXEeHj6VuokH6iH3';
+  //wallet.accountId;
   if(!walletid) {
     window.alert("Please login with your wallet!")
   }
   else{
-    const rpcURL = 'https://public-api.solscan.io/chaininfo/'; //api for solana devnet
-    const method = 'getConfirmedSignaturesForAddress2'; //to get the last 10 transactions
+    const rpcURL = 'https://api.mainnet-beta.solana.com'; //api for sol mainnet
+    const method = 'getSignaturesForAddress'; //to get the last 10 transactions
     const params = [walletid, { limit: 10 }]; //params for the api
     //formatting the request body
     const body = JSON.stringify({
@@ -196,7 +198,7 @@ async function querySOL(walletid) {
 }
 
 document.querySelector('#query-aave-button').onclick = () => queryAAVE(wallet.accountId);
-document.querySelector('#query-sol-button').onclick = () => querySOL(wallet.accountId);
+document.querySelector('#query-sol-button').onclick = () => querySOL();
 
 
 // UI: Hide signed-out elements
