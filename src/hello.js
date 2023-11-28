@@ -135,7 +135,7 @@ async function queryAAVE() {
 
       //display balance
       const displayDiv = document.querySelector('#displayDiv');
-      // displayDiv.innerHTML = '';
+      
       tokenAddresses.forEach((address, index) => {
         const balanceInEther = ethers.formatEther(balances[index]);
         const displayDivChild = document.createElement('div');
@@ -188,14 +188,6 @@ async function querySOL() {
     if (data.error) throw new Error(data.error.message);
 
     const accountInfo = data.result; // The account information you retrieved
-
-   /*  // Display the result
-    const displayDiv = document.querySelector('#displayDiv');
-    // displayDiv.innerHTML = ''; // Clear previous results
-    const displayDivChild = document.createElement('div');
-    displayDivChild.classList.add('resdisplay');
-    displayDivChild.textContent = JSON.stringify(accountInfo, null, 2); // Displaying the JSON string for simplicity
-    displayDiv.appendChild(displayDivChild); */
 
     return accountInfo;
 
