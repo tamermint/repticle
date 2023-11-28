@@ -38,20 +38,18 @@ document.addEventListener('DOMContentLoaded', async () => {
               <span>submit</span>
               <div className="loader"></div>
             </button>
-            <div id="demo-nft"></div>
           <div className='row-10 mt-4'>
-            <button className="btn btn-primary" id="display-wallet-summary" onClick={generateSummary}>Generate Summary</button>
+            <button className="btn btn-primary" id="display-wallet-summary" onClick={generateSummary}>Generate Activity Summary</button>
           </div>
-          <div id="summary-display"></div>
+          <div className="summary-display"></div>
         </div>
       </div>
     </div>
   );
 });
 
-async function queryEthAddress(walletid) {            //queries the eth address using etherscan API
+async function queryEthAddress(walletAddress) {            //queries the eth address using etherscan API
   const etherScanAPIKey = "2KCHPQPJJJSKTQ281UI17F9Z8QIZ7ZDEZU";
-  const walletAddress = walletid;
 
   try {
     const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${walletAddress}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=${etherScanAPIKey}`;
@@ -88,8 +86,8 @@ async function generateSummary() {    //generate summary by first retreiving wal
     const walletAddress = document.getElementById('greeting').value;
     const walletActivity = await queryEthAddress(walletAddress);
     const summary = simulateAiResponse(walletActivity);
-    const walletSummaryDisplay = document.getElementById('summary-display');
-    walletSummaryDisplay.innerHTML = summary;
+    const walletSummaryDisplay = document.querySelector('.summary-display');
+    walletSummaryDisplay.textContent = summary;
   } catch (error) {
     console.error("Error in generateSummary:", error);
     window.alert("Error occurred: " + error.message);
@@ -98,9 +96,6 @@ async function generateSummary() {    //generate summary by first retreiving wal
 
 
 async function categorizeOnChainActivites(activities) {
-  const walletAddress = wallet.accountId;
-  activities = await queryEthAddress(walletAddress);
-
   let activityScore = 0;
 
   const activityGrade = {
@@ -129,22 +124,21 @@ async function categorizeOnChainActivites(activities) {
 }
 
 async function calculateRepScore(activityScore) {
-  activityScore = await categorizeOnChainActivites(activities);
   return Math.pow(activityScore, 2);
 }
 
 async function mintRepScore() {
   try {
-    const walletAddress = wallet.accountId;
+    const walletAddress = '0x4aB7C05Ca6281deA5A95C40CD5B11ad0CFA5836E';
     const walletActivity = await queryEthAddress(walletAddress);
-    const onChainAcitvityScore = await categorizeOnChainActivites(walletActivity);
-    const score = await calculateRepScore(onChainAcitvityScore); // Pass the correct argument if needed
+    const onChainActivityScore = await categorizeOnChainActivites(walletActivity);
+    const score = await calculateRepScore(onChainActivityScore); // Pass the correct argument if needed
     if (!score) {
       window.alert("Sorry, unable to fetch score");
     } else {
       window.alert(`NFT for ${score}:`);
-      const nftDiv = document.querySelector('#demo-nft');
-      nftDiv.style.backgroundImage = 'url("./assets/example-nft.png")';
+      const nftDiv = document.querySelector('.demo-nft');
+      nftDiv.style.background = 'url(./assets/example-nft.png) no-repeat center center';
     }
   } catch (error) {
     console.error("Error in mintRepScore:", error);
