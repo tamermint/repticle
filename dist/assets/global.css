@@ -165,6 +165,19 @@ pre {
   width: auto;
 }
 
+.demo-nft {
+  width: 200px;
+  height: 200px;
+  background-size: 100% 100%;
+  background-position: center;
+  margin-top: 2em;
+}
+
+.summary-display {
+  color: snow;
+  animation: fadeInOut 20s ease-in-out forwards;
+}
+
 a,
 .link {
   color: var(--primary);
