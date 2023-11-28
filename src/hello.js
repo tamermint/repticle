@@ -135,7 +135,7 @@ async function queryAAVE() {
 
       //display balance
       const displayDiv = document.querySelector('#displayDiv');
-      displayDiv.innerHTML = '';
+      // displayDiv.innerHTML = '';
       tokenAddresses.forEach((address, index) => {
         const balanceInEther = ethers.formatEther(balances[index]);
         const displayDivChild = document.createElement('div');
@@ -154,55 +154,100 @@ async function queryAAVE() {
 }
 
 async function querySOL() {
-  //example to use - 6qumtoj7ECEMzvFx7Pm7nnBmEUB7PXEeHj6VuokH6iH3 - mainnet
-  const walletid = '6qumtoj7ECEMzvFx7Pm7nnBmEUB7PXEeHj6VuokH6iH3';
-  //wallet.accountId;
-  if(!walletid) {
-    window.alert("Please login with your wallet!")
+  const walletid = '2rQoDW3xyHBNzwqWeCKAAomu8nxafF3c9CYJUyLkoTzd'; // Use the wallet ID as needed
+  const rpcURL = 'https://api.testnet.solana.com'; // API URL for the Solana testnet
+
+  if (!walletid) {
+    window.alert("Please login with your wallet!");
+    return;
   }
-  else{
-    const rpcURL = 'https://api.mainnet-beta.solana.com'; //api for sol mainnet
-    const method = 'getSignaturesForAddress'; //to get the last 10 transactions
-    const params = [walletid, { limit: 10 }]; //params for the api
-    //formatting the request body
-    const body = JSON.stringify({
-      jsonrpc: '2.0',
-      id: 1,
-      method: method,
-      params: params
+
+  const requestBody = {
+    jsonrpc: '2.0',
+    id: 1,
+    method: 'getAccountInfo',
+    params: [
+      walletid,
+      {
+        encoding: 'base58'
+      }
+    ]
+  };
+
+  try {
+    const response = await fetch(rpcURL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody)
     });
 
-    try{
-      const response = await fetch(rpcURL, {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: body
-      });
-      const data = await response.json();
-      const displayData = data.result;
-      const displayDiv = document.querySelector('#displayDiv');
-      displayDiv.innerHTML = '';
-      const displayDivChild = document.createElement('div');     //appending the JSON response to the body
-      displayDivChild.classList.add('resdisplay');
-      displayDivChild.innerHTML = displayData.forEach(tx => {
-        `
-          <p><strong>Transaction Signature:</strong> ${tx.signature}</p>
-          <p><strong>Slot:</strong> ${tx.slot}</p>
-          <p><strong>Block Time:</strong> ${new Date(tx.blockTime * 1000).toLocaleString()}</p>
-        `;
-      })
-      displayDiv.appendChild(displayDivChild);
+    const data = await response.json();
 
-    }
-    catch(error){
-      console.error("Error querying SOL:", error);
-      window.alert("Error occurred while querying SOL: " + error.message);
-    }
+    if (!response.ok) throw new Error('Network response was not ok.');
+
+    if (data.error) throw new Error(data.error.message);
+
+    const accountInfo = data.result; // The account information you retrieved
+
+   /*  // Display the result
+    const displayDiv = document.querySelector('#displayDiv');
+    // displayDiv.innerHTML = ''; // Clear previous results
+    const displayDivChild = document.createElement('div');
+    displayDivChild.classList.add('resdisplay');
+    displayDivChild.textContent = JSON.stringify(accountInfo, null, 2); // Displaying the JSON string for simplicity
+    displayDiv.appendChild(displayDivChild); */
+
+    return accountInfo;
+
+  } catch (error) {
+    console.error("Error querying SOL:", error);
+    window.alert("Error occurred while querying SOL: " + error.message);
   }
 }
 
-document.querySelector('#query-aave-button').onclick = () => queryAAVE(wallet.accountId);
-document.querySelector('#query-sol-button').onclick = () => querySOL();
+async function querySOLTable() {
+  const jsonData = await querySOL();
+
+  // Start with an empty string for our HTML
+  let tableHTML = '<table class="table">';
+
+  // Add a table header
+  tableHTML += `
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>`;
+
+  // Iterate over each key in the JSON object
+  for (const key in jsonData) {
+    // Check if the value is an object and if so, stringify it
+    let value = typeof jsonData[key] === 'object' && jsonData[key] !== null
+                ? JSON.stringify(jsonData[key], null, 2) // Beautify the JSON string
+                : jsonData[key];
+
+    // Append a row to our table
+    tableHTML += `
+      <tr>
+        <td>${key}</td>
+        <td><pre>${value}</pre></td>
+      </tr>`;
+  }
+
+  // Close the table tag
+  tableHTML += '</table>';
+
+  const displayDiv = document.querySelector('#displayDiv');
+  const tableDiv = document.createElement('div');
+  // tableDiv.classList.add('resdisplay');
+  tableDiv.innerHTML = tableHTML;
+
+  displayDiv.appendChild(tableDiv);
+
+}
+
+
+document.querySelector('#query-aave-button').onclick = () => queryAAVE();
+document.querySelector('#query-sol-button').onclick = () => querySOLTable();
 
 
 // UI: Hide signed-out elements

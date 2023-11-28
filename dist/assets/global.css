@@ -111,6 +111,18 @@ h1 {
   color: snow;
 }
 
+@keyframes fadeInOut {
+  0%, 50% {
+    opacity: 1;
+    background-color: #2a2a2a;
+  }
+  100% {
+    opacity: 0;
+    background-color: #d3d3d3;
+    display: none; /* This will remove the element from the document flow */
+  }
+}
+
 .resdisplay {
   z-index: 100000;
   background-color: #2a2a2a;
@@ -120,6 +132,37 @@ h1 {
   border-radius: 20px 20px 20px 20px;
   /* height: 100%;
   width: 100%; */
+  opacity: 1;
+  animation: fadeInOut 10s ease-in-out forwards;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: snow;
+  animation: fadeInOut 10s ease-in-out forwards;
+}
+
+table, th, td {
+  border: 1px solid black;
+  
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  color: snow;
+}
+
+pre {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 5px;
+  overflow: auto;
+  width: auto;
 }
 
 a,
