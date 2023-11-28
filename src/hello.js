@@ -1,96 +1,97 @@
 import { Wallet } from './near-wallet';
-const { ethers } = require("ethers");
+const ethers = require('ethers');
 
 
 //setting the contract ABI for retrieving wallet balance of a user
-const walletBalanceProviderAddress = '0xCD4e0d6D2b1252E2A709B8aE97DBA31164C5a709';
+const walletBalanceProviderAddress = '0xC7be5307ba715ce89b152f3Df0658295b3dbA8E2';
 
 //Getting wallet balance provider ABI
 const walletBalanceProviderABI = [
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
+           {
+            "inputs":
+              [
+                {
+                  "internalType":"address",
+                  "name":"user",
+                  "type":"address"
+                },
+                {
+                  "internalType":"address",
+                  "name":"token",
+                  "type":"address"
+                }
+              ],
+              "name":"balanceOf",
+              "outputs":[
+                {
+                  "internalType":"uint256",
+                  "name":"",
+                  "type":"uint256"
+                }
+              ],
+              "stateMutability":"view",
+              "type":"function"
             },
             {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            }
-        ],
-        "name": "balanceOf",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address[]",
-                "name": "users",
-                "type": "address[]"
+              "inputs":[
+                {
+                  "internalType":"address[]",
+                  "name":"users",
+                  "type":"address[]"
+                },
+                {
+                  "internalType":"address[]",
+                  "name":"tokens",
+                  "type":"address[]"
+                }
+              ],
+              "name":"batchBalanceOf",
+              "outputs":[
+                {
+                  "internalType":"uint256[]",
+                  "name":"",
+                  "type":"uint256[]"
+                }
+              ],
+              "stateMutability":"view",
+              "type":"function"
             },
             {
-                "internalType": "address[]",
-                "name": "tokens",
-                "type": "address[]"
-            }
-        ],
-        "name": "batchBalanceOf",
-        "outputs": [
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "provider",
-                "type": "address"
+              "inputs":[
+                {
+                  "internalType":"address",
+                  "name":"provider",
+                  "type":"address"
+                },
+                {
+                  "internalType":"address",
+                  "name":"user",
+                  "type":"address"
+                }
+              ],
+              "name":"getUserWalletBalances",
+              "outputs":[
+                {
+                  "internalType":"address[]",
+                  "name":"",
+                  "type":"address[]"
+                },
+                {
+                  "internalType":"uint256[]",
+                  "name":"",
+                  "type":"uint256[]"
+                }
+              ],
+              "stateMutability":"view",
+              "type":"function"
             },
             {
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
+              "stateMutability":"payable",
+              "type":"receive"
             }
-        ],
-        "name": "getUserWalletBalances",
-        "outputs": [
-            {
-                "internalType": "address[]",
-                "name": "",
-                "type": "address[]"
-            },
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "stateMutability": "payable",
-        "type": "receive"
-    }
-]
+        ];
 
-//setting provider URL to that of infura (mainnet)
+//setting provider URL to that of infura (mainnet) - a node
 const providerURL = 'https://mainnet.infura.io/v3/db4bbb5f4c224b55a40392836def6c9f';
 
 // When creating the wallet you can optionally ask to create an access key
@@ -115,21 +116,22 @@ function signedOutUI() { hide('#signed-in'); hide('#sign-out-button'); }
 //Query AAVE
 async function queryAAVE() {
   //example address to use - 0xc736e108e326379b331f825f762af4dde41c62ef - mainnet
-  const walletid = '0xc736e108e326379b331f825f762af4dde41c62ef';
+  const walletid = "0xc736e108e326379b331f825f762af4dde41c62ef";
   if(!walletid) {
     window.alert("Please login with your wallet!")
   }
   else{
     try{
       // Create a new provider
-      const provider = new ethers.providers.JsonRpcProvider(providerURL);
+      const provider = new ethers.JsonRpcProvider(providerURL);
 
       // Create a new contract instance
       const walletBalanceProviderContract = new ethers.Contract(walletBalanceProviderAddress, walletBalanceProviderABI, provider);
 
-
+       //error why - maybe because in the contract, the provider address is pool address and not wallet balance provider address
+       const iPoolProviderAddress = '0x2f39d218133AFaB8F2B819B1066c7E434Ad94E9e';
       // Get balance
-      const [tokenAddresses, balances] = await walletBalanceProviderContract.getUserWalletBalances(provider, walletid);
+      const [tokenAddresses, balances] = await walletBalanceProviderContract.getUserWalletBalances(iPoolProviderAddress, walletid);
 
       //display balance
       const displayDiv = document.querySelector('#displayDiv');
@@ -138,8 +140,10 @@ async function queryAAVE() {
         const balanceInEther = ethers.formatEther(balances[index]);
         const displayDivChild = document.createElement('div');
         displayDivChild.classList.add('resdisplay');
-        displayDivChild.innerHTML = `Token: ${address}, Balance: ${balanceInEther}`;
-        displayDiv.appendChild(displayDivChild);
+        if(balanceInEther != 0.0){
+          displayDivChild.innerHTML = `Token: ${address}, Balance: ${balanceInEther}`;
+          displayDiv.appendChild(displayDivChild);
+        }
       });
     }
     catch(error){
