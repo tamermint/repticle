@@ -37,3 +37,6 @@
 - Future Scope
 - My plan is to iterate on this and work on cross-chain communications. I plan to use NEAR. Currently I am not using any smart contracts so that is a steep learning curve
 - I need to embed and refine the quadratic scoring logic and use a smart contract for cross chain communication. Front-end can be hosted on IPFS
+- Need to incorporate a decay function to gradually decay the reputation score incase of inactivity. 
+- Building a client interface for B2B integrations and generate reputation tokens
+- Reputation tokens : Authenticity curves based on Steganography. The token generated can have a watermark embedded inorder to have show genuine content - this is a step against deep fakes and synthetic info. At the same time need to create a light client - that only checks for authentic watermarks
