@@ -16,12 +16,7 @@
 
 - Reputation graph will help you import a network-graph of value from your interactions with these services which will assist you in creating use-case specific validation services
 
-- To start : npm run dev if you have npm installed otherwise
-  yarn install npm
-  then copy over all files to local machine directory
-  then
-  npm install
-  npm run dev
+- To start : node server.js
 
 - Live Link : https://reputation-token.onrender.com
 
