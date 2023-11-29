@@ -22,10 +22,12 @@
 
 - Additional notes:
 
-  - This was forked off the demo react app provided by NEAR Quickstart tutorials
+  - This was forked off the demo js app provided by NEAR Quickstart tutorials - https://docs.near.org/develop/quickstart-guide
   - Background image - https://static.vecteezy.com/system/resources/previews/023/670/903/non_2x/decentralization-decentralized-structure-line-icon-vector.jpg
 
   - While this project interacts with AAVE and SOL, it is just using APIs and ABIs. No Smart Contracts are involved.
+
+  - Also, another mention here - The wallet is a standalone app - it doesn't yet integrate with the logic as this is a PoC
 
   - Anyone interested to work and develop on this can contact me directly and we can take this ahead
 
