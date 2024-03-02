@@ -4,9 +4,9 @@
 
 - As part of the build backdrop project to build something in Crypto and interface with backdrop partners to get it launched
 
-- Incorporating steganography in nfts in order to combat deepfakes
+- Incorporating steganography in content in order to combat deepfakes
 
-- Output of this project : PoC of a service that helps users to prove authenticity of content
+- Output of this project : PoC of a service that helps users to prove authenticity of content - inbuilt attestations in content using steganography
 
 - What does an authentic content look like? At a pixel level?
 
@@ -25,4 +25,4 @@
 
 - Building a client interface for B2B integrations and generate repticles
 
-- Repticles : Authenticity curves based on Steganography. The token generated can have a watermark embedded inorder to have show genuine content - this is a step against deep fakes and synthetic info. At the same time need to create a light client - that only checks for authentic watermarks
+- Repticles : Authenticity attestations based on Steganography. The token generated can have a watermark embedded inorder to have show genuine content - this is a step against deep fakes and synthetic info. At the same time need to create a light client - that only checks for authentic watermarks
