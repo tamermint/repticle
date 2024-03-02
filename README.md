@@ -4,13 +4,13 @@
 
 - As part of the build backdrop project to build something in Crypto and interface with backdrop partners to get it launched
 
-- Incorporating steganography in content in order to combat deepfakes
+- Incorporating <> in content in order to combat deepfakes/fake content
 
-- Output of this project : PoC of a service that helps users to prove authenticity of content - inbuilt attestations in content using steganography
+- Output of this project : PoC of a service that helps users to prove authenticity of content - attestations
 
 - What does an authentic content look like? At a pixel level?
 
-- Create a service for user to prove authenticity of content - content demarcated with a steganographic curve and minted on chain
+- Create a service for user to prove authenticity of content - content demarcated with a <> curve and minted on chain
 
 - This project will also seek to solve a problem of the Consumer Layer of Crypto - the user friendly interface that is sometimes lacking in these services.
 
@@ -25,4 +25,4 @@
 
 - Building a client interface for B2B integrations and generate repticles
 
-- Repticles : Authenticity attestations based on Steganography. The token generated can have a watermark embedded inorder to have show genuine content - this is a step against deep fakes and synthetic info. At the same time need to create a light client - that only checks for authentic watermarks
+- Repticles : Authenticity attestations based on NEAR Attestation Standard (NAS). The token generated can have a watermark embedded inorder to have show genuine content - this is a step against deep fakes and synthetic info. At the same time need to create a light client - that only checks for authentic attestation
