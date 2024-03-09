@@ -1,3 +1,4 @@
+import { Hash } from "crypto-browserify"
 import { NearBindgen, call, view, near, UnorderedMap, Vector, NearBindgen } from "near-sdk-js"
 import { object, string } from "prop-types"
 import { Ecdsa, PrivateKey, Signature } from "starkbank-ecdsa"
@@ -22,7 +23,8 @@ const NO_EXPIRE = 0 //referring to attestation with no expiry
 @NearBindgen({})
 export class rootAuthSchema {
     static Attestation = {
-        NAFId: string, //a unique id for the attestation schema
+        NAFId: string, //a unique id for the schema
+        RepticleID: string, //id of the attestation
         AccountID: string, //accountid attesting
         RecipientID: string, //accountid of the attestation receiver
         Balance: BigInt, //balance of the attester's account
