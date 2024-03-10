@@ -23,8 +23,7 @@ const NO_EXPIRE = 0 //referring to attestation with no expiry
 @NearBindgen({})
 export class rootAuthSchema {
     static Attestation = {
-        NAFId: string, //a unique id for the schema
-        RepticleID: string, //id of the attestation
+        Schema: object, //a unique id for the schema
         AccountID: string, //accountid attesting
         RecipientID: string, //accountid of the attestation receiver
         Balance: BigInt, //balance of the attester's account
@@ -32,9 +31,7 @@ export class rootAuthSchema {
         ExpirationTime: BigInt, //time when attestation expires
         RevocationTime: BigInt, //time when the attestation was revoked
         isRevocable: Boolean, //whether this can be revoked or not
-        history: string, //tx history hash of the account doing the attestation
         BlockHeight: BigInt, //attestation checkpoint
-        Data: string, //custom data
     }
 
     @call({})
@@ -44,7 +41,7 @@ export class rootAuthSchema {
     }
 
     @call({})
-    make_signature() {
+    make_signature(Attestation) {
         let pubkey = this.return_account_id()
         let privateKey = PrivateKey.fromPem(pubkey)
         Signature = Ecdsa.sign(Attestation, privateKey)
