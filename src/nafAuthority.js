@@ -1,9 +1,8 @@
-import { Hash } from "crypto-browserify"
 import { NearBindgen, call, view, near, UnorderedMap, Vector, NearBindgen } from "near-sdk-js"
 import { object, string } from "prop-types"
 import { Ecdsa, PrivateKey, Signature } from "starkbank-ecdsa"
 
-//contract to first create a schema for the attestation service
+//contract to first create an attestation object
 //schema to have the following :
 // --strict attributes
 //   :address transaction history(near account primitive)
@@ -16,15 +15,11 @@ import { Ecdsa, PrivateKey, Signature } from "starkbank-ecdsa"
 //   :cross-chain w3credential provider id, or
 //   :KYC-id
 
-const EMPTY_NAFID = 0 //referring to an empty NAFId
-
-const NO_EXPIRE = 0 //referring to attestation with no expiry
-
-@NearBindgen({})
+@NearBindgen({ requireInit: true })
 export class rootAuthSchema {
     static Attestation = {
-        Schema: object, //a unique id for the schema
         AccountID: string, //accountid attesting
+        Schema: object, //the schema
         RecipientID: string, //accountid of the attestation receiver
         Balance: BigInt, //balance of the attester's account
         Time: BigInt, //timestamp of the attestation
@@ -34,17 +29,7 @@ export class rootAuthSchema {
         BlockHeight: BigInt, //attestation checkpoint
     }
 
-    @call({})
-    return_account_id() {
-        accountID = near.signerAccountPk()
-        return accountID
-    }
+    static EMPTY_NAFID = 0
 
-    @call({})
-    make_signature(Attestation) {
-        let pubkey = this.return_account_id()
-        let privateKey = PrivateKey.fromPem(pubkey)
-        Signature = Ecdsa.sign(Attestation, privateKey)
-        return Signature
-    }
+    static NO_EXPIRE = 0
 }

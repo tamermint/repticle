@@ -5,6 +5,8 @@
 // 4. When using external providers, make sure to check whether they are supported!
 
 import { NearBindgen, call, view, near, NearBindgen, UnorderedMap } from "near-sdk-js"
+import { object, string } from "prop-types"
+import { Ecdsa, PrivateKey, Signature } from "starkbank-ecdsa"
 import { v4 as uuidv4 } from "uuid"
 
 //Build the schema object as per the rules
@@ -16,6 +18,7 @@ class Schema {
         this.name = name //name of the schema
         this.nafID = nafID //uid of the schema
         this.attributes = attributes //what all fields to be added
+        this.signature = signature //you're adding your signature to the schema
     }
 }
 @NearBindgen({})
@@ -23,9 +26,34 @@ export class attestationRegistry {
     constructor() {
         this.nafregistry = new UnorderedMap("naf_r")
     }
+    static Attestation = {
+        Schema: Schema, //the schema
+        AccountID: string, //accountid attesting
+        RecipientID: string, //accountid of the attestation receiver
+        Balance: BigInt, //balance of the attester's account
+        Time: BigInt, //timestamp of the attestation
+        ExpirationTime: BigInt, //time when attestation expires
+        RevocationTime: BigInt, //time when the attestation was revoked
+        isRevocable: Boolean, //whether this can be revoked or not
+        BlockHeight: BigInt, //attestation checkpoint
+    }
 
     @call({})
-    createSchema(name, nafID, attributes) {
+    return_account_id() {
+        accountID = near.signerAccountPk()
+        return accountID
+    }
+
+    @call({})
+    make_signature(Attestation) {
+        let pubkey = this.return_account_id()
+        let privateKey = PrivateKey.fromPem(pubkey)
+        Signature = Ecdsa.sign(Attestation, privateKey)
+        return Signature
+    }
+
+    @call({})
+    createSchema(name, nafID, attributes, signature) {
         //take in these params and then generate nafID, and get strict attributes
         //get the name from front end
         name = "newSchema"
@@ -45,8 +73,9 @@ export class attestationRegistry {
             } else {
                 //generate nafID
                 nafID = uuidv4()
+                signature = this.make_signature(near.signerAccountPk())
                 //call the class constructor outside of Bindgen
-                return new Schema(name, nafID, attributes)
+                return new Schema(name, nafID, attributes, signature)
             }
         }
     }
@@ -54,7 +83,7 @@ export class attestationRegistry {
     @call({})
     addSchema(schema) {
         accountID = near.signerAccountId()
-        this.nafregistry.set(accountId, schema)
+        this.nafregistry.set(accountID, schema)
     }
 
     @view({})
