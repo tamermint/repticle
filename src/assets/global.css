@@ -22,11 +22,10 @@ body {
   margin: 0;
   height: 100vh;
   /* background: linear-gradient(to bottom, transparent, rgb(var(--shadow))) rgb(var(--light-gray)); */
-  background: url(./dappbackg.png);
+  background: url(./dappbackg.jpg);
   /* background-color: var(--shadow) !important; */
-  /* background-repeat: no-repeat;
   background-position: center;
-  background-size: cover; */
+  background-size: contain;
 }
 
 a {
