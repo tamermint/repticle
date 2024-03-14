@@ -21,7 +21,7 @@ class Schema {
         this.signature = signature //you're adding your signature to the schema
     }
 }
-@NearBindgen({})
+@NearBindgen({ requireInit: true })
 export class attestationRegistry {
     constructor() {
         this.nafregistry = new UnorderedMap("naf_r")

@@ -1,6 +1,5 @@
-import { NearBindgen, call, view, near, UnorderedMap, Vector, NearBindgen } from "near-sdk-js"
+import { NearBindgen } from "near-sdk-js"
 import { object, string } from "prop-types"
-import { Ecdsa, PrivateKey, Signature } from "starkbank-ecdsa"
 
 //contract to first create an attestation object
 //schema to have the following :
@@ -29,7 +28,5 @@ export class rootAuthSchema {
         BlockHeight: BigInt, //attestation checkpoint
     }
 
-    static EMPTY_NAFID = 0
-
-    static NO_EXPIRE = 0
+    static EMPTY_NAFID = 0 //if nafid == 0, attestation doesn't exist
 }

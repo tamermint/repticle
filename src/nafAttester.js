@@ -16,7 +16,7 @@ import { LookupMap, NearBindgen, call, initialize, near, view } from "near-sdk-j
 import { attestationRegistry } from "./nafRegistry"
 import { rootAuthSchema } from "./nafAuthority"
 
-@NearBindgen({})
+@NearBindgen({ requireInit: true })
 export class Attester {
     constructor() {
         this.AttestationRegistry = new LookupMap() //to store all the attestations
@@ -45,7 +45,6 @@ export class Attester {
         attestationObject.ExpirationTime = this.ExpirationTime
         attestationObject.RevocationTime = this.RevocationTime
         attestationObject.blockHeight = this.blockHeight
-
         return attestationObject
     }
 
