@@ -22,7 +22,7 @@ body {
   margin: 0;
   height: 100vh;
   /* background: linear-gradient(to bottom, transparent, rgb(var(--shadow))) rgb(var(--light-gray)); */
-  background: url(./dappbackg.webp);
+  background: url(./dappbackg.png);
   /* background-color: var(--shadow) !important; */
   /* background-repeat: no-repeat;
   background-position: center;
