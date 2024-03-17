@@ -9,8 +9,11 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyśoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <title>Reputation Graph</title>
 </head>
 
@@ -18,27 +21,28 @@
   <nav class="navbar">
     <div class="container-fluid navbar-expand-lg justify-content-end">
       <div class='navbar-nav pt-1'>
-        <button class="btn btn-secondary" id="sign-in-button"> Login </button>
-        <button class="btn btn-secondary" id="sign-out-button"> Logout <span data-behavior="account-id"></span></button>
+        <button class="btn btn-primary" id="sign-in-button"> Login </button>
+        <button class="btn btn-primary" id="sign-out-button"> Logout <span data-behavior="account-id"></span></button>
       </div>
     </div>
   </nav>
 
   <div class="container">
-    <footer id="disclaimer">This is a PoC that interacts with only AAVE and SOLANA. To get an idea of how this PoC can be matured
-      refer to the Github <a id="footer-disclaimer" href="https://github.com/tamermint/reputation-graph">tamermint@github</a>
+    <footer id="disclaimer">This is a PoC that only serves to demo an attestation on the NEAR blockchain.
+      Currently it is a one to one attestation. Haven't implemented multiattestation,
+      irrevocable or incorporated third party id providers yet <a id="footer-disclaimer" href="https://github.com/tamermint/reputation-graph">tamermint@github</a>
     </footer>
 
-    <div class="row my-5 pt-5 flex-1">
+    <div class="text-center row my-5 flex-1">
       <div class="col-12 text-center">
-        <h1 id="welcomeMessage"> Welcome Citizen, Login to get summary of your activity <!--<span class="greeting" id="displayGreeting"></span>--></h1>
+        <h1 id="welcomeMessage"> Welcome Nearite! Login to create your schema</h1>
       </div>
       <div class="row justify-content-center" id="displayDiv">
-        <div class="col-auto">
-          <button class="btn btn-primary me-3" id="query-aave-button">Query AAVE</button>
-          <button class="btn btn-primary me-3" id="query-sol-button">Query SOL</button>
-          <div id="signed-out" class="big text-center mt-3">
-            You need to be logged in before querying!
+        <div class="col-4 text-center">
+          <!-- <button class="btn btn-primary me-4" id="query-aave-button">Create Schema</button> -->
+          <button class="btn btn-primary ms-2 mt-2" id="query-sol-button">Create Schema</button>
+          <div id="signed-out" class="text-center mt-3">
+            You need to be logged in before creating, you are currently signed out!
           </div>
         </div>
       </div>
@@ -51,21 +55,21 @@
       </div>
     </div>
 
-    <div class="row m-5">
+    <div class="row text-center m-2">
       <div class="col-6">
         <a href="/components.html" target="_blank">
           <h3>
-            Check out your web3 Reputation <span>-&gt;</span>
+            Make Attestation<span>-&gt;</span>
           </h3>
-          <p class="small">Click here to get your graph and score</p>
+          <p class="small">Make your attestation</p>
         </a>
       </div>
       <div class="col-6">
         <a href="./why-kyc.html" target="_blank">
           <h3>
-            Why KYC? <span>-&gt;</span>
+            View Registry<span>-&gt;</span>
           </h3>
-          <p class="small">Learn why we need a better KYC for web3 and why web2 KYC is broken?</p>
+          <p class="small">Check registry for list of available schemas</p>
         </a>
       </div>
     </div>
