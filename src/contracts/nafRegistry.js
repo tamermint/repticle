@@ -45,10 +45,9 @@ export class attestationRegistry {
     }
 
     @call({})
-    make_signature(Attestation) {
-        let pubkey = this.return_account_id()
-        let privateKey = PrivateKey.fromPem(pubkey)
-        Signature = Ecdsa.sign(Attestation, privateKey)
+    make_signature(publicKey, schema) {
+        let privateKey = PrivateKey.fromPem(publicKey)
+        Signature = Ecdsa.sign(schema, privateKey)
         return Signature
     }
 
@@ -94,8 +93,6 @@ export class attestationRegistry {
     @view({})
     viewRegistry() {
         const schemaArray = this.nafregistry.toArray()
-        for (let accountID of schemaArray) {
-            console.log(`${accountID}: ${accountID.schema}`)
-        }
+        return schemaArray
     }
 }
