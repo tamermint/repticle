@@ -2,8 +2,7 @@
 //simple to check - whether the account.near made this attestation or not
 //if not, revoke it
 
-import { LookupMap, NearBindgen, call, initialize, near, view } from "near-sdk-js"
-import { attestationRegistry } from "./nafRegistry"
+import { NearBindgen, call, view } from "near-sdk-js"
 import { Attester } from "./nafAttester"
 import { rootAuthSchema } from "./nafAuthority"
 

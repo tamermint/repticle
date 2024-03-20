@@ -31,8 +31,6 @@ export class Attester {
         // this.Balance = near.accountBalance() can be done via browser api
         this.Time = near.blockTimestamp()
         this.ExpirationTime = near.epochHeight() * 4
-        this.RevocationTime = revokeAttestation()
-        // this.isRevocable = false needs to be set via front end
         this.blockHeight = near.blockHeight() //attestation checkpoint
     }
 
@@ -43,7 +41,6 @@ export class Attester {
         attestationObject.Schema = this.Schema
         attestationObject.Time = this.Time
         attestationObject.ExpirationTime = this.ExpirationTime
-        attestationObject.RevocationTime = this.RevocationTime
         attestationObject.blockHeight = this.blockHeight
         return attestationObject
     }
